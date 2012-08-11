@@ -9,5 +9,42 @@
 #import <UIKit/UIKit.h>
 
 @interface IQViewController : UIViewController
+{
+    IBOutlet UILabel *question;
+    IBOutlet UILabel *answerA;
+    IBOutlet UILabel *answerB;
+    IBOutlet UILabel *answerC;
+    IBOutlet UILabel *answerD;
+    IBOutlet UIButton *choicea;
+    IBOutlet UIButton *choiceb;
+    IBOutlet UIButton *choicec;
+    IBOutlet UIButton *choiced;
+    IBOutlet UIButton *submit;
+    IBOutlet UILabel *score;
+    IBOutlet UILabel *nameLabel;
+    IBOutlet UILabel *result;
+    NSMutableData *responseData;
+}
+
+@property (nonatomic, strong) NSString *name;
+@property (retain, nonatomic) NSMutableData *responseData;
+
+-(IBAction)showModalViewController;
+
+-(IBAction)showLoginViewController;
+
+-(IBAction)submit:(id)sender;
+
+-(void)resetAllChoices;
+
+- (void)disableAllChoices;
+
+-(IBAction)checkAnswer;
+
+-(IBAction)skipQuestion;
+
+-(void)calculatescore;
+
+-(void)showResults;
 
 @end
