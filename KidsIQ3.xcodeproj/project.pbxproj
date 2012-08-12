@@ -52,7 +52,7 @@
 		E0D3617815C4B54700725B62 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		E0D3617B15C4B54700725B62 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		E0D3617D15C4B54700725B62 /* IQViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IQViewController.h; sourceTree = "<group>"; };
-		E0D3617E15C4B54700725B62 /* IQViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IQViewController.m; sourceTree = "<group>"; };
+		E0D3617E15C4B54700725B62 /* IQViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IQViewController.m; sourceTree = "<group>"; usesTabs = 1; };
 		E0D3618515C4B54700725B62 /* KidsIQ3Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KidsIQ3Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D3618615C4B54700725B62 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		E0D3618E15C4B54700725B62 /* KidsIQ3Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KidsIQ3Tests-Info.plist"; sourceTree = "<group>"; };

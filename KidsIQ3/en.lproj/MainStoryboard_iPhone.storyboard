@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KFb-pi-xba">
-                                <rect key="frame" x="117" y="206" width="72" height="37"/>
+                                <rect key="frame" x="117" y="258" width="72" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <state key="normal" title="OK">
@@ -67,13 +67,13 @@
         <scene sceneID="4Ms-px-uuP">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHy-Jr-z9S" sceneMemberID="firstResponder"/>
-                <viewController id="GRm-jF-hYg" customClass="IQViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IQViewController" title="IQViewController" id="GRm-jF-hYg" customClass="IQViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gtK-EL-CkF">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" minimumFontSize="22" id="0Yt-pt-pFH">
-                                <rect key="frame" x="15" y="50" width="280" height="54"/>
+                                <rect key="frame" x="5" y="55" width="310" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -231,7 +231,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="tpK-TE-7lL">
-                                <rect key="frame" x="85" y="112" width="147" height="21"/>
+                                <rect key="frame" x="85" y="119" width="147" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

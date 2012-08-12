@@ -22,13 +22,16 @@
 @synthesize responseData;
 @synthesize selectedChoice = _selectedChoice;
 @synthesize correctChoice = _correctChoice;
-NSInteger _id = 3;
+@synthesize usedNumbers;
+NSInteger _id = 34;
 NSInteger _score = 0;
 NSInteger _noOfQuestions = 0;
-NSInteger maxQuestions;
+int maxQuestions = 35;
+int count;
 NSDictionary *res;
 NSString *titleText;
 NSString *scoreText;
+bool reset;
 
 @synthesize name;
 
@@ -44,36 +47,8 @@ NSString *scoreText;
     NameViewController *loginView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
     // loginView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     // [self presentModalViewController:loginView animated:true]; 
-    NSLog(@"Name = ");
-    NSLog(name);
+    NSLog(@"Name = ", name);
     nameLabel.text = name;
-}
-
--(IBAction)showModalViewController {
-    /*
-    NSLog(_selectedChoice);
-    
-    ResultController *tempView = [[ResultController alloc] initWithNibName:@"ResultController" bundle:nil];
-    
-    if ([_selectedChoice isEqualToString:_correctChoice]) {
-        tempView.answer = @"Correct Answer kiddo!";
-        _score++;
-    }
-    else {
-        tempView.answer = [@"Oops. That was incorrect. The correct answer is " stringByAppendingString:_correctChoice];
-    }
-    _noOfQuestions++;
-    tempView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:tempView animated:true];
-    _id++;
-    
-    [self resetAllChoices];
-    
-    if(_id > 5) _id = 1;
-        
-        NSLog([NSString stringWithFormat:@"%d", _id]);        
-        [self viewDidLoad];
-     */
 }
 
 - (IBAction)submit:(id)sender {
@@ -139,11 +114,12 @@ NSString *scoreText;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showLoginViewController];
+    //[self showLoginViewController];
     [self calculatescore];
     
     submit.enabled = FALSE;
     [submit setTitle: @"Select" forState: UIControlStateNormal];
+    //_id = [self generateRandomNumber];
     _nsURL = [@"http://www.komagan.com/KidsIQ/index.php?format=json&quiz=1&question_id=" stringByAppendingFormat:@"%d ", _id];
     
     NSLog(_nsURL);
@@ -153,14 +129,12 @@ NSString *scoreText;
     
     NSURLRequest *aRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: _nsURL]];
     NSLog(@"request established");
-    
-    //NSData *aResponse = [NSURLConnection sendSynchronousRequest:aRequest returningResponse:nil error:nil];
+    NSLog(@"didReceiveResponse");
     [[NSURLConnection alloc] initWithRequest:aRequest delegate:self];
     
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"didReceiveResponse");
     [self.responseData setLength:0];
 }
 
@@ -182,14 +156,14 @@ NSString *scoreText;
     NSError *myError = nil;
     res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
     NSMutableArray *answers = [[NSMutableArray alloc] init];
+   
+    //for(NSDictionary *res1 in res) {
+        
+        
+    //}
     
     for(NSDictionary *res1 in res) {
-        
         question.text = [res1 objectForKey:@"question"];
-    }
-    
-    for(NSDictionary *res1 in res) {
-        
         NSString *answer = [res1 objectForKey:@"choice_text"];
         [answers addObject :answer];
         
@@ -198,7 +172,7 @@ NSString *scoreText;
         if ([rightChoice isEqualToString:@"1"]) {
             _correctChoice = answer;
         }
-        NSLog(@"retrieving specific values", answer);
+        //NSLog(@"retrieving specific values", answer);
     }
     
     if ([res count] ==0)
@@ -229,6 +203,16 @@ NSString *scoreText;
     choiceb.enabled = YES;
     choiceb.enabled = YES;
     choiced.enabled = YES;
+}
+
+- (void)resetAll /* restart the quiz */
+{
+    //reset all the counters
+    _id = 1;
+    _score = 0;
+    reset = YES;  //reset the first set of questions
+    _noOfQuestions = 0;
+    [self viewDidLoad];
 }
 
 - (void)disableAllChoices 
@@ -268,7 +252,7 @@ NSString *scoreText;
             result.text = @"";
             [self resetAllChoices];
             //if(_id > 5) _id = 1;
-            NSLog([NSString stringWithFormat:@"%d", _id]);        
+            //NSLog([NSString stringWithFormat:@"%d", _id]);        
             [self viewDidLoad];
         }
 }
@@ -279,9 +263,9 @@ NSString *scoreText;
     _noOfQuestions++;
     [self resetAllChoices];
     
-    if(_id > 5) _id = 1;
+    //if(_id > 5) _id = 1;
         
-    NSLog([NSString stringWithFormat:@"%d", _id]);        
+    //NSLog([NSString stringWithFormat:@"%d", _id]);        
 
     [self calculatescore];
     [self viewDidLoad];
@@ -319,12 +303,50 @@ NSString *scoreText;
 
 -(void)showResults
 {
+    
     ResultController *resultView = [[ResultController alloc] initWithNibName:@"ResultController" bundle:nil];
     resultView.name = [@"Hi there " stringByAppendingString:[name stringByAppendingString:@""]];
     resultView.title = titleText;
     resultView.score = scoreText;
+	[self resetAll];
     resultView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:resultView animated:true];
+}
+
+-(int)generateRandomNumber
+{
+    if(count <= maxQuestions)
+    {
+    int randomNumber = (arc4random() % maxQuestions) + 1; 
+    //NSLog([NSString stringWithFormat:@"%i", randomNumber]);
+    
+    bool myIndex = [usedNumbers containsObject:[NSNumber numberWithInt: randomNumber]];
+    if (myIndex == false) 
+    {        
+        [usedNumbers addObject:[NSNumber numberWithInt:randomNumber]];
+        NSLog(@"numberWithSet : %@ \n\n",usedNumbers);
+		count++;
+		return randomNumber;
+    }
+	else{
+		[self generateRandomNumber];
+		return 0; 
+	}
+		
+	}
+    //[_usedNumbers addObject:[NSNumber numberWithInt:randomNumber]];
+    
+    /*
+    unsigned int myIndex = [_usedNumbers containsObject:[NSNumber numberWithInt: randomNumber]];
+    if(myIndex != NSNotFound) {
+        [_usedNumbers addObject:[NSNumber numberWithInt:randomNumber]];
+        NSLog(@"Adding...", randomNumber);
+        NSLog(@"size of array: %lu", [_usedNumbers count]);
+        return randomNumber;
+    }
+    else{
+        [self generateRandomNumber];
+    }*/
 }
 
 - (void)viewDidUnload
@@ -335,13 +357,13 @@ NSString *scoreText;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //[self performSegueWithIdentifier: @"NameViewController" sender:self]; 
-    //[self showLoginViewController];
-    
-}
+ }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+   // _usedNumbers = [NSMutableArray alloc];
+	nameLabel.text = name;
+    usedNumbers = [NSMutableSet setWithCapacity:maxQuestions];
     [super viewDidAppear:animated];
 }
 
@@ -360,7 +382,7 @@ NSString *scoreText;
     if ([res count] ==0)
     {
        
-    if ([[segue identifier] isEqualToString:@"ResultController"]) {
+    if ([[segue identifier] isEqualToString:@"ResultController"]) { 
         IQViewController *loginView = segue.destinationViewController;
     }
     }

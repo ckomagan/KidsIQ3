@@ -27,7 +27,8 @@
 }
 
 @property (nonatomic, strong) NSString *name;
-@property (retain, nonatomic) NSMutableData *responseData;
+@property (nonatomic, retain) NSMutableData *responseData;
+@property (nonatomic, retain) NSMutableSet *usedNumbers;
 
 -(IBAction)showModalViewController;
 
@@ -36,6 +37,8 @@
 -(IBAction)submit:(id)sender;
 
 -(void)resetAllChoices;
+
+-(void)resetAll;
 
 - (void)disableAllChoices;
 
@@ -46,5 +49,7 @@
 -(void)calculatescore;
 
 -(void)showResults;
+
+-(int)generateRandomNumber;
 
 @end
