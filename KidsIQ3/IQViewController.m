@@ -23,10 +23,9 @@
 @synthesize selectedChoice = _selectedChoice;
 @synthesize correctChoice = _correctChoice;
 @synthesize usedNumbers;
-NSInteger _id = 34;
+NSInteger _id = 19;
 NSInteger _score = 0;
 NSInteger _noOfQuestions = 0;
-int maxQuestions = 35;
 int count;
 NSDictionary *res;
 NSString *titleText;
@@ -34,7 +33,7 @@ NSString *scoreText;
 bool reset;
 
 @synthesize name;
-
+@synthesize maxQuestions;
 @interface UIButton (ColoredBackground)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
@@ -115,23 +114,30 @@ bool reset;
 {
     [super viewDidLoad];
     //[self showLoginViewController];
-    [self calculatescore];
+  	if(_id < maxQuestions)
+	{
+		submit.enabled = FALSE;
+		[submit setTitle: @"Select" forState: UIControlStateNormal];
+		//_id = [self generateRandomNumber];
+		//NSLog(@"No of questions: %@", self.maxQuestions);
+
+		_nsURL = [@"http://www.komagan.com/KidsIQ/index.php?format=json&quiz=1&question_id=" stringByAppendingFormat:@"%d ", _id];
     
-    submit.enabled = FALSE;
-    [submit setTitle: @"Select" forState: UIControlStateNormal];
-    //_id = [self generateRandomNumber];
-    _nsURL = [@"http://www.komagan.com/KidsIQ/index.php?format=json&quiz=1&question_id=" stringByAppendingFormat:@"%d ", _id];
+		NSLog(_nsURL);
     
-    NSLog(_nsURL);
-    
-    NSError *error = nil;
-    self.responseData = [NSMutableData data];
-    
-    NSURLRequest *aRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: _nsURL]];
-    NSLog(@"request established");
-    NSLog(@"didReceiveResponse");
-    [[NSURLConnection alloc] initWithRequest:aRequest delegate:self];
-    
+		NSError *error = nil;
+		self.responseData = [NSMutableData data];
+		
+		NSURLRequest *aRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: _nsURL]];
+		NSLog(@"request established");
+		NSLog(@"didReceiveResponse");
+		[[NSURLConnection alloc] initWithRequest:aRequest delegate:self];
+	
+	}
+	else{
+		[self showResults];
+        return;
+	}
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -185,7 +191,6 @@ bool reset;
     answerB.text = [answers objectAtIndex:1];
     answerC.text = [answers objectAtIndex:2];
     answerD.text = [answers objectAtIndex:3];
-    
     }
 
 - (void)resetAllChoices 
@@ -240,6 +245,9 @@ bool reset;
         }
         _noOfQuestions++;
         _id++;
+		[self calculatescore];
+		
+		
         [submit setTitle:@"Next" forState:(UIControlState)UIControlStateNormal];
         [self disableAllChoices];
         //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: .50 ];
@@ -284,15 +292,15 @@ bool reset;
         {
             titleText = @"You are practically a genius";
         }
-        if((tally >= 0.6) && (tally <= 0.9))
+        if((tally >= 0.7) && (tally <= 0.9))
         {
-            titleText = @"You are practically a genius \ue415";
+            titleText = @"That's not bad!";
         }
-        if((tally >= 0.35) && (tally <= 0.6))
+        if((tally >= 0.5) && (tally <= 0.7))
         {
             titleText = @"I think you can do better?!?";
         }
-        if(tally <= 0.3)
+        if(tally <= 0.5)
         {
             titleText = @"You better start over \ue40e";
         }
@@ -308,6 +316,7 @@ bool reset;
     resultView.name = [@"Hi there " stringByAppendingString:[name stringByAppendingString:@""]];
     resultView.title = titleText;
     resultView.score = scoreText;
+	resultView.maxQuestions = maxQuestions;
 	[self resetAll];
     resultView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:resultView animated:true];
@@ -382,11 +391,15 @@ bool reset;
     if ([res count] ==0)
     {
        
-    if ([[segue identifier] isEqualToString:@"ResultController"]) { 
+    if ([[segue identifier] isEqualToString:@"ResultControllerScreen"]) { 
         IQViewController *loginView = segue.destinationViewController;
     }
     }
         
+}
+
+-(IBAction)dismissView {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

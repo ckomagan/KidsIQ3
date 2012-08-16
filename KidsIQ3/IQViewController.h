@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IQViewController : UIViewController
+@interface IQViewController : UIViewController 
 {
     IBOutlet UILabel *question;
     IBOutlet UILabel *answerA;
@@ -23,12 +23,14 @@
     IBOutlet UILabel *score;
     IBOutlet UILabel *nameLabel;
     IBOutlet UILabel *result;
+    IBOutlet UIButton *test;
     NSMutableData *responseData;
 }
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, retain) NSMutableData *responseData;
 @property (nonatomic, retain) NSMutableSet *usedNumbers;
+@property int maxQuestions;
 
 -(IBAction)showModalViewController;
 
@@ -51,5 +53,7 @@
 -(void)showResults;
 
 -(int)generateRandomNumber;
+
+-(IBAction)dismissView;
 
 @end

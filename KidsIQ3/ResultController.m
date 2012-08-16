@@ -19,6 +19,7 @@
 @synthesize name;
 @synthesize title;
 @synthesize score;
+@synthesize maxQuestions;
 bool reset = NO;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,11 +61,12 @@ bool reset = NO;
 
 -(IBAction)dismissView {
     
-    //IQViewController *resultView = [[IQViewController alloc] initWithNibName:@"ResultController" bundle:nil];
-    //[self dismissModalViewControllerAnimated:YES];
-    NameViewController *nameView = [[NameViewController alloc] initWithNibName:@"LoginView" bundle:nil];
-    nameView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:nameView animated:false];
+    IQViewController *quiView = [[IQViewController alloc] initWithNibName:@"IQViewController" bundle:nil];
+    [self dismissModalViewControllerAnimated:YES];
+    //NameViewController *nameView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
+    //nameView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    quiView.maxQuestions = maxQuestions;
+    [self presentModalViewController:quiView animated:false];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
