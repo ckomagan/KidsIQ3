@@ -9,6 +9,7 @@
 #import "IQViewController.h"
 #import "ResultController.h"
 #import "NameViewController.h"
+#import "QuitController.h"
 
 @interface IQViewController()
 @property (nonatomic, strong) NSString *nsURL;
@@ -23,7 +24,7 @@
 @synthesize selectedChoice = _selectedChoice;
 @synthesize correctChoice = _correctChoice;
 @synthesize usedNumbers;
-NSInteger _id = 19;
+NSInteger _id = 0;
 NSInteger _score = 0;
 NSInteger _noOfQuestions = 0;
 int count;
@@ -43,11 +44,14 @@ bool reset;
 
 -(void)showLoginViewController {
     
-    NameViewController *loginView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
-    // loginView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    // [self presentModalViewController:loginView animated:true]; 
-    NSLog(@"Name = ", name);
+    //NameViewController *loginView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
+    //NSLog(@"Name = ", name);
     nameLabel.text = name;
+}
+
+-(IBAction)showModalViewController {
+    QuitController *tempView = [[QuitController alloc] initWithNibName:@"QuitController" bundle:nil];
+    [self presentModalViewController:tempView animated:true];
 }
 
 - (IBAction)submit:(id)sender {
@@ -114,7 +118,7 @@ bool reset;
 {
     [super viewDidLoad];
     //[self showLoginViewController];
-  	if(_id < maxQuestions)
+  	if(_id <= maxQuestions)
 	{
 		submit.enabled = FALSE;
 		[submit setTitle: @"Select" forState: UIControlStateNormal];
@@ -270,11 +274,6 @@ bool reset;
     _id++;
     _noOfQuestions++;
     [self resetAllChoices];
-    
-    //if(_id > 5) _id = 1;
-        
-    //NSLog([NSString stringWithFormat:@"%d", _id]);        
-
     [self calculatescore];
     [self viewDidLoad];
 }
