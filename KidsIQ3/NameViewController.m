@@ -17,6 +17,8 @@ NSString *levelSelection;
 int level;
 @synthesize levelpicker;
 @synthesize levelPickerView;
+@synthesize maxQuestions;
+int noOfQuestions = 0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,19 +40,17 @@ int level;
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
+    noOfQuestions = maxQuestions;
     levelpicker = [NSArray arrayWithObjects:@"60", @"40",@"20",nil];
-
     levelPickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
-    
     levelPickerView.delegate = self;
     levelPickerView.showsSelectionIndicator = YES;
     [levelPickerView selectRow:1 inComponent:0 animated:YES];
-     
     CGAffineTransform rotate = CGAffineTransformMakeRotation(3.14/2);
     rotate = CGAffineTransformScale(rotate, 0.2, 1.4);
     [self.levelPickerView setTransform:rotate];
     [self.view addSubview:levelPickerView];
-    self.levelPickerView.center = CGPointMake(160,240);  
+    self.levelPickerView.center = CGPointMake(160,230);  
 }
 
 - (void)viewDidUnload
@@ -90,15 +90,19 @@ int level;
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showQuiz"]) {
-        IQViewController *loginView = segue.destinationViewController;
+        IQViewController *quizView = segue.destinationViewController;
         if ([nameText.text isEqualToString:@""]) {
             errorStatus.text = @"Please enter the name.";
             return;
         }
         
-        loginView.name = nameText.text;  
-        loginView.maxQuestions = [levelSelection intValue];
+        quizView.name = nameText.text;  
+        
+        quizView.maxQuestions = noOfQuestions;
+        
+        [quizView resetAll];
     }
+    NSLog(@"%i", noOfQuestions);
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -111,31 +115,19 @@ int level;
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     NSUInteger numRows = 3;
-    
+    noOfQuestions = 0;
     return numRows;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     levelSelection = [levelpicker objectAtIndex:row];
-	/*if([levelSelection isEqual:@"20 Questions"])
-	{
-		level = 20;
-	}
-	if ([levelSelection isEqual:@"40 Questions"])
-	{
-		level = 40;
-	}
-	if ([levelSelection isEqual:@"60 Questions"])
-	{
-		level = 60;
-	}*/
     NSLog(@"You selected: %@", levelSelection);
+    noOfQuestions = [levelSelection intValue];
 }
 
 -(IBAction)selectedRow {
 
-        //NSString *message = [NSString stringWithFormat:@"You selected: %@",[levelpicker objectAtIndex:maxQuestions]];
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
@@ -162,6 +154,7 @@ int level;
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.backgroundColor = [UIColor clearColor];
     label.clipsToBounds = YES;
+    noOfQuestions = 40;
     return label ;
 }
 
