@@ -63,10 +63,16 @@ bool reset = NO;
     
     IQViewController *quiView = [[IQViewController alloc] initWithNibName:@"IQViewController" bundle:nil];
     [self dismissModalViewControllerAnimated:YES];
-    //NameViewController *nameView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
-    //nameView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     quiView.maxQuestions = maxQuestions;
     [self presentModalViewController:quiView animated:false];
+}
+
+-(IBAction)loginScreen {
+    
+    NameViewController *vc = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]  instantiateViewControllerWithIdentifier:@"NameViewController"];
+    vc.maxQuestions = 0;
+    [self presentModalViewController:vc animated:false];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
