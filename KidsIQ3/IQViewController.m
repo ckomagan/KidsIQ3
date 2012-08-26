@@ -61,7 +61,9 @@ bool reset;
 - (void)showbutton {
     submit.enabled = TRUE;
     [submit setTitle: @"Submit" forState: UIControlStateNormal];
+	
     [submit setBackgroundColor:[UIColor blueColor]];
+	//[self disableAllChoices];
 }
 
 - (IBAction)choicea:(id)sender {
@@ -72,18 +74,17 @@ bool reset;
     [choicea setBackgroundColor:[UIColor redColor]];
     _selectedChoice = answerA.text;
     [self showbutton];
-    
 }
 
 - (IBAction)choiceb:(id)sender {
-    
+	
     [self resetAllChoices];    
     choiceb = (UIButton *)sender;
     [answerB setTextColor:[UIColor redColor]];
     [choiceb setBackgroundColor:[UIColor redColor]];
     _selectedChoice = answerB.text;
     [self showbutton];
-    
+  
 }
 
 - (IBAction)choicec:(id)sender {
@@ -94,6 +95,7 @@ bool reset;
     [choicec setBackgroundColor:[UIColor redColor]];
     _selectedChoice = answerC.text;
     [self showbutton];
+	
 }
 
 - (IBAction)choiced:(id)sender {
@@ -127,9 +129,8 @@ bool reset;
 
 		_nsURL = [@"http://www.komagan.com/KidsIQ/index.php?format=json&quiz=1&question_id=" stringByAppendingFormat:@"%d ", _id];
     
-		NSLog(_nsURL);
+		NSLog(@"URL=%@",_nsURL);
     
-		NSError *error = nil;
 		self.responseData = [NSMutableData data];
 		
 		NSURLRequest *aRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: _nsURL]];
@@ -154,7 +155,7 @@ bool reset;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {    
     NSLog(@"didFailWithError");
-    NSLog([NSString stringWithFormat:@"Connection failed: %@", [error description]]);
+    NSLog(@"Connection failed: %@", [error description]);
     self.responseData = nil;
 }
 
@@ -226,11 +227,35 @@ bool reset;
 
 - (void)disableAllChoices 
 {
-    
-    choicea.enabled = NO;
-    choiceb.enabled = NO;
-    choiceb.enabled = NO;
-    choiced.enabled = NO;
+    /*self->choicea.enabled = NO;
+    self->choiceb.enabled = NO;
+    self->choiceb.enabled = NO;
+    self->choiced.enabled = NO;
+	self->choicea.userInteractionEnabled = false;
+	self->choiceb.userInteractionEnabled = false;
+	self->choiceb.userInteractionEnabled = false;
+	self->choiced.userInteractionEnabled = false;
+	[submit setUserInteractionEnabled:TRUE];
+	 */
+	
+	for (UIView *view in self.view.subviews){
+		view.userInteractionEnabled = NO;
+		self->submit.userInteractionEnabled = YES;
+	}
+}
+
+- (void)enableAllChoices 
+{
+    /*self->choicea.enabled = YES;
+    self->choiceb.enabled = YES;
+    self->choiceb.enabled = YES;
+    self->choiced.enabled = YES;
+	self->choicea.userInteractionEnabled = TRUE;
+	self->choiceb.userInteractionEnabled = TRUE;
+	self->choiceb.userInteractionEnabled = TRUE;
+	self->choiced.userInteractionEnabled = TRUE;*/
+	for (UIView *view in self.view.subviews)
+		view.userInteractionEnabled=YES;
 }
 
 - (IBAction)checkAnswer
@@ -251,11 +276,8 @@ bool reset;
         _id++;
 		[self calculatescore];
 		
-		
         [submit setTitle:@"Next" forState:(UIControlState)UIControlStateNormal];
-        [self disableAllChoices];
-        //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: .50 ];
-        //[NSThread sleepUntilDate:future];
+		[self disableAllChoices];
         return;
     }
     
@@ -264,7 +286,8 @@ bool reset;
             result.text = @"";
             [self resetAllChoices];
             //if(_id > 5) _id = 1;
-            //NSLog([NSString stringWithFormat:@"%d", _id]);        
+            //NSLog([NSString stringWithFormat:@"%d", _id]);    
+			[self enableAllChoices];
             [self viewDidLoad];
         }
 }
@@ -275,6 +298,7 @@ bool reset;
     _noOfQuestions++;
     [self resetAllChoices];
     [self calculatescore];
+	result.text =@"";
     [self viewDidLoad];
 }
 
@@ -355,6 +379,7 @@ bool reset;
     else{
         [self generateRandomNumber];
     }*/
+	return 0;
 }
 
 - (void)viewDidUnload
@@ -391,7 +416,7 @@ bool reset;
     {
        
     if ([[segue identifier] isEqualToString:@"ResultControllerScreen"]) { 
-        IQViewController *loginView = segue.destinationViewController;
+        //IQViewController *loginView = segue.destinationViewController;
     }
     }
         
