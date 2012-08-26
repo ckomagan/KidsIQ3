@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 7/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import "NameViewController.h"
@@ -13,12 +13,13 @@
 @end
 
 @implementation NameViewController
-NSString *levelSelection;
-int level;
 @synthesize levelpicker;
 @synthesize levelPickerView;
 @synthesize maxQuestions;
+NSString *levelSelection;
+int level;
 int noOfQuestions = 0;
+#define LEGAL	@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +41,7 @@ int noOfQuestions = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
+    nameText.delegate = self;
     noOfQuestions = maxQuestions;
     levelpicker = [NSArray arrayWithObjects:@"60", @"40",@"20",nil];
     levelPickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -51,6 +53,7 @@ int noOfQuestions = 0;
     [self.levelPickerView setTransform:rotate];
     [self.view addSubview:levelPickerView];
     self.levelPickerView.center = CGPointMake(160,230);  
+    [nameText setFrame:CGRectMake(50, 90, 200, 40)];
 }
 
 - (void)viewDidUnload
@@ -124,16 +127,21 @@ int noOfQuestions = 0;
     levelSelection = [levelpicker objectAtIndex:row];
     NSLog(@"You selected: %@", levelSelection);
     noOfQuestions = [levelSelection intValue];
-}
-
--(IBAction)selectedRow {
-
+    [nameText resignFirstResponder];
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 {
     return [levelpicker objectAtIndex:row];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:LEGAL] invertedSet];
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return [string isEqualToString:filtered];
+}
+
 
 -(IBAction)textFieldReturn:(id)sender
 {
@@ -142,6 +150,7 @@ int noOfQuestions = 0;
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
+    [nameText resignFirstResponder];
     CGRect rect = CGRectMake(0, 0, 200, 100);
     UILabel *label = [[UILabel alloc]initWithFrame:rect];
     CGAffineTransform rotate = CGAffineTransformMakeRotation(-3.14/2);
