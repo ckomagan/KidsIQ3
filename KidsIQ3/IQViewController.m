@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 7/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import "IQViewController.h"
@@ -44,8 +44,6 @@ bool reset;
 
 -(void)showLoginViewController {
     
-    //NameViewController *loginView = [[NameViewController alloc] initWithNibName:@"NameViewController" bundle:nil];
-    //NSLog(@"Name = ", name);
     nameLabel.text = name;
 }
 
@@ -61,9 +59,7 @@ bool reset;
 - (void)showbutton {
     submit.enabled = TRUE;
     [submit setTitle: @"Submit" forState: UIControlStateNormal];
-	
-    [submit setBackgroundColor:[UIColor blueColor]];
-	//[self disableAllChoices];
+	[submit setBackgroundColor:[UIColor blueColor]];
 }
 
 - (IBAction)choicea:(id)sender {
@@ -120,7 +116,7 @@ bool reset;
 {
     [super viewDidLoad];
     //[self showLoginViewController];
-  	if(_id <= maxQuestions)
+	if(_id <= maxQuestions)
 	{
 		submit.enabled = FALSE;
 		[submit setTitle: @"Select" forState: UIControlStateNormal];
@@ -168,11 +164,6 @@ bool reset;
     res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
     NSMutableArray *answers = [[NSMutableArray alloc] init];
    
-    //for(NSDictionary *res1 in res) {
-        
-        
-    //}
-    
     for(NSDictionary *res1 in res) {
         question.text = [res1 objectForKey:@"question"];
         NSString *answer = [res1 objectForKey:@"choice_text"];
@@ -196,6 +187,7 @@ bool reset;
     answerB.text = [answers objectAtIndex:1];
     answerC.text = [answers objectAtIndex:2];
     answerD.text = [answers objectAtIndex:3];
+	[self calculatescore];
     }
 
 - (void)resetAllChoices 
@@ -227,18 +219,7 @@ bool reset;
 
 - (void)disableAllChoices 
 {
-    /*self->choicea.enabled = NO;
-    self->choiceb.enabled = NO;
-    self->choiceb.enabled = NO;
-    self->choiced.enabled = NO;
-	self->choicea.userInteractionEnabled = false;
-	self->choiceb.userInteractionEnabled = false;
-	self->choiceb.userInteractionEnabled = false;
-	self->choiced.userInteractionEnabled = false;
-	[submit setUserInteractionEnabled:TRUE];
-	 */
-	
-	for (UIView *view in self.view.subviews){
+   for (UIView *view in self.view.subviews){
 		view.userInteractionEnabled = NO;
 		self->submit.userInteractionEnabled = YES;
 	}
@@ -246,15 +227,7 @@ bool reset;
 
 - (void)enableAllChoices 
 {
-    /*self->choicea.enabled = YES;
-    self->choiceb.enabled = YES;
-    self->choiceb.enabled = YES;
-    self->choiced.enabled = YES;
-	self->choicea.userInteractionEnabled = TRUE;
-	self->choiceb.userInteractionEnabled = TRUE;
-	self->choiceb.userInteractionEnabled = TRUE;
-	self->choiced.userInteractionEnabled = TRUE;*/
-	for (UIView *view in self.view.subviews)
+    for (UIView *view in self.view.subviews)
 		view.userInteractionEnabled=YES;
 }
 
@@ -285,8 +258,6 @@ bool reset;
         {    
             result.text = @"";
             [self resetAllChoices];
-            //if(_id > 5) _id = 1;
-            //NSLog([NSString stringWithFormat:@"%d", _id]);    
 			[self enableAllChoices];
             [self viewDidLoad];
         }
@@ -305,7 +276,7 @@ bool reset;
 - (void)calculatescore
 {
     scoreText = [NSString stringWithFormat:@"%d",_score];
-    scoreText = [scoreText stringByAppendingString:@ "/"];
+    scoreText = [scoreText stringByAppendingString:@ " / "];
     scoreText = [scoreText stringByAppendingString:[NSString stringWithFormat:@"%d",_noOfQuestions]];
     if (_noOfQuestions > 0)
     {
@@ -337,7 +308,7 @@ bool reset;
     
     ResultController *resultView = [[ResultController alloc] initWithNibName:@"ResultController" bundle:nil];
     resultView.name = [@"Hi there " stringByAppendingString:[name stringByAppendingString:@""]];
-    resultView.title = titleText;
+    resultView.titleText = titleText;
     resultView.score = scoreText;
 	resultView.maxQuestions = maxQuestions;
 	[self resetAll];
