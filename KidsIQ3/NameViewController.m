@@ -49,11 +49,11 @@ int noOfQuestions = 0;
     levelPickerView.showsSelectionIndicator = YES;
     [levelPickerView selectRow:1 inComponent:0 animated:YES];
     CGAffineTransform rotate = CGAffineTransformMakeRotation(3.14/2);
-    rotate = CGAffineTransformScale(rotate, 0.2, 1.4);
+    rotate = CGAffineTransformScale(rotate, 0.2, 1.2);
     [self.levelPickerView setTransform:rotate];
     [self.view addSubview:levelPickerView];
-    self.levelPickerView.center = CGPointMake(160,230);  
-    [nameText setFrame:CGRectMake(50, 90, 200, 40)];
+    self.levelPickerView.center = CGPointMake(160,250);
+    [nameText setFrame:CGRectMake(50, 120, 200, 40)];
 }
 
 - (void)viewDidUnload
@@ -142,10 +142,23 @@ int noOfQuestions = 0;
     return [string isEqualToString:filtered];
 }
 
-
 -(IBAction)textFieldReturn:(id)sender
 {
     [sender resignFirstResponder];
+    [nameText resignFirstResponder];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [nameText resignFirstResponder];
+}
+
+- (IBAction)backgroundTouched:(id)sender {
+    [self.view endEditing:YES];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [nameText resignFirstResponder];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
@@ -166,5 +179,30 @@ int noOfQuestions = 0;
     noOfQuestions = 40;
     return label ;
 }
+
+- (void)willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation)toInterfaceOrientation
+                                         duration:(NSTimeInterval)duration
+{
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+        toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+    {
+        titleLabel.center = CGPointMake(230,20);
+        nameLabel.center = CGPointMake(230,70);
+        [nameText setFrame:CGRectMake(120, 90, 220, 40)];
+        choicesLabel.center = CGPointMake(240, 160);
+        self.levelPickerView.center = CGPointMake(230,210);
+        nameOK.center = CGPointMake(230,270);
+    }
+    else
+    {
+        titleLabel.center = CGPointMake(160,43);
+        nameLabel.center = CGPointMake(160,97);
+        [nameText setFrame:CGRectMake(50, 120, 200, 40)];
+        choicesLabel.center = CGPointMake(156, 200);
+        self.levelPickerView.center = CGPointMake(160,250);
+        nameOK.center = CGPointMake(154,328);
+    }
+}
+
 
 @end
