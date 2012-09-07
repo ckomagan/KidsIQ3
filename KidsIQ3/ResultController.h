@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 7/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -18,10 +18,11 @@
 }
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *titleText;
 @property (nonatomic, strong) NSString *score;
 @property int maxQuestions;
 
 -(IBAction)dismissView;
+-(IBAction)loginScreen;
 
 @end

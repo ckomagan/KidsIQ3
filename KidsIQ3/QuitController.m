@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 8/20/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import "QuitController.h"
@@ -25,10 +25,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -36,14 +33,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 -(IBAction)dismissView {
@@ -57,10 +51,10 @@
     [self presentModalViewController:vc animated:false];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    // Return YES for supported orientations
-	return YES;
+    return (orientation != UIDeviceOrientationLandscapeLeft) &&
+	(orientation != UIDeviceOrientationLandscapeRight);
 }
 
 @end

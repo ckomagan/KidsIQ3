@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 7/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import "ResultController.h"
@@ -14,10 +14,8 @@
 @end
 
 @implementation ResultController
-
-//@synthesize answer = _answer;
 @synthesize name;
-@synthesize title;
+@synthesize titleText;
 @synthesize score;
 @synthesize maxQuestions;
 bool reset = NO;
@@ -45,10 +43,8 @@ bool reset = NO;
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view from its nib.
-    //responseText.text = _answer;
     nameLabel.text = name;
-    titleLabel.text = title;
+    titleLabel.text = titleText;
     scoreLabel.text = [@"Your score is: " stringByAppendingString:score];
 }
 
@@ -75,10 +71,10 @@ bool reset = NO;
     
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    // Return YES for supported orientations
-	return YES;
+    return (orientation != UIDeviceOrientationLandscapeLeft) &&
+	(orientation != UIDeviceOrientationLandscapeRight);
 }
 
 @end

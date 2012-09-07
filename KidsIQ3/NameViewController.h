@@ -3,15 +3,18 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 7/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface NameViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface NameViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
  {
-    IBOutlet UITextField *nameText;
+    IBOutlet UILabel *nameLabel;
+    IBOutlet UILabel *titleLabel;
+    IBOutlet UILabel *choicesLabel;
     IBOutlet UILabel *errorStatus;
+    IBOutlet UITextField *nameText;
     IBOutlet UIButton *nameOK;
     IBOutlet UIPickerView *levelPickerView;
 }
@@ -20,9 +23,10 @@
 
 @property (nonatomic, retain) UIPickerView *levelPickerView;
 
+@property int maxQuestions;
+
 -(IBAction)validateTextFields:(id)sender;
 -(IBAction)dismissView;
--(IBAction)selectedRow;
 -(IBAction)textFieldReturn:(id)sender;
 
 @end

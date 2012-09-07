@@ -3,7 +3,7 @@
 //  KidsIQ3
 //
 //  Created by Chan Komagan on 8/20/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 KidsIQ. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -13,6 +13,7 @@
 @end
 
 @implementation NameViewController
+
 @synthesize levelpicker;
 @synthesize levelPickerView;
 @synthesize maxQuestions;
@@ -25,22 +26,18 @@ int noOfQuestions = 0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];
     nameText.delegate = self;
     noOfQuestions = maxQuestions;
     levelpicker = [NSArray arrayWithObjects:@"60", @"40",@"20",nil];
@@ -170,14 +167,14 @@ int noOfQuestions = 0;
     rotate = CGAffineTransformScale(rotate, 0.25, 2.5);
     [label setTransform:rotate];
     label.text = [levelpicker objectAtIndex:row];
-    label.font = [UIFont systemFontOfSize:50.0];
+    label.font = [UIFont systemFontOfSize:60.0];
     label.textAlignment = UITextAlignmentCenter;
     label.numberOfLines = 2;
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.backgroundColor = [UIColor clearColor];
     label.clipsToBounds = YES;
     noOfQuestions = 40;
-    return label ;
+    return label;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation)toInterfaceOrientation
