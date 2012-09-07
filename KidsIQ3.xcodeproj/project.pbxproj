@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E020AA5C15C4F6B500BE7C27 /* KidsIQSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E020AA5B15C4F6B500BE7C27 /* KidsIQSB.storyboard */; };
+		E01524E915F45333008E449B /* kidsiq_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E01524E815F45333008E449B /* kidsiq_57x57.png */; };
 		E036BF8115DB0BFE00BA4DC9 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D3617715C4B54700725B62 /* MainStoryboard_iPhone.storyboard */; };
 		E036BF8215DB0BFF00BA4DC9 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D3617715C4B54700725B62 /* MainStoryboard_iPhone.storyboard */; };
 		E036BF8315DB0C0700BA4DC9 /* ResultController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0D3619F15C4B81700725B62 /* ResultController.xib */; };
+		E0929EFB15E3204600259824 /* QuitController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0929EF915E3204600259824 /* QuitController.m */; };
+		E0929EFC15E3204600259824 /* QuitController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0929EFA15E3204600259824 /* QuitController.xib */; };
 		E0D3616615C4B54700725B62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D3616515C4B54700725B62 /* UIKit.framework */; };
 		E0D3616815C4B54700725B62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D3616715C4B54700725B62 /* Foundation.framework */; };
 		E0D3616A15C4B54700725B62 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D3616915C4B54700725B62 /* CoreGraphics.framework */; };
@@ -40,7 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E020AA5B15C4F6B500BE7C27 /* KidsIQSB.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = KidsIQSB.storyboard; sourceTree = "<group>"; };
+		E01524E815F45333008E449B /* kidsiq_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kidsiq_57x57.png; sourceTree = "<group>"; };
+		E0929EF815E3204600259824 /* QuitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuitController.h; sourceTree = "<group>"; };
+		E0929EF915E3204600259824 /* QuitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuitController.m; sourceTree = "<group>"; };
+		E0929EFA15E3204600259824 /* QuitController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuitController.xib; sourceTree = "<group>"; };
 		E0D3616115C4B54700725B62 /* KidsIQ3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KidsIQ3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D3616515C4B54700725B62 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E0D3616715C4B54700725B62 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,7 +100,6 @@
 		E0D3615615C4B54700725B62 = {
 			isa = PBXGroup;
 			children = (
-				E020AA5B15C4F6B500BE7C27 /* KidsIQSB.storyboard */,
 				E0D3616B15C4B54700725B62 /* KidsIQ3 */,
 				E0D3618C15C4B54700725B62 /* KidsIQ3Tests */,
 				E0D3616415C4B54700725B62 /* Frameworks */,
@@ -138,6 +142,9 @@
 				E0D3616C15C4B54700725B62 /* Supporting Files */,
 				E0D361A215C4BC2600725B62 /* NameViewController.h */,
 				E0D361A315C4BC2600725B62 /* NameViewController.m */,
+				E0929EF815E3204600259824 /* QuitController.h */,
+				E0929EF915E3204600259824 /* QuitController.m */,
+				E0929EFA15E3204600259824 /* QuitController.xib */,
 			);
 			path = KidsIQ3;
 			sourceTree = "<group>";
@@ -145,6 +152,7 @@
 		E0D3616C15C4B54700725B62 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E01524E815F45333008E449B /* kidsiq_57x57.png */,
 				E0D3616D15C4B54700725B62 /* KidsIQ3-Info.plist */,
 				E0D3616E15C4B54700725B62 /* InfoPlist.strings */,
 				E0D3617115C4B54700725B62 /* main.m */,
@@ -217,7 +225,7 @@
 		E0D3615815C4B54700725B62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = E0D3615B15C4B54700725B62 /* Build configuration list for PBXProject "KidsIQ3" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -245,8 +253,9 @@
 				E0D3617015C4B54700725B62 /* InfoPlist.strings in Resources */,
 				E0D3617C15C4B54700725B62 /* MainStoryboard_iPad.storyboard in Resources */,
 				E0D361A115C4B81700725B62 /* ResultController.xib in Resources */,
-				E020AA5C15C4F6B500BE7C27 /* KidsIQSB.storyboard in Resources */,
 				E036BF8115DB0BFE00BA4DC9 /* MainStoryboard_iPhone.storyboard in Resources */,
+				E0929EFC15E3204600259824 /* QuitController.xib in Resources */,
+				E01524E915F45333008E449B /* kidsiq_57x57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +297,7 @@
 				E0D3617F15C4B54700725B62 /* IQViewController.m in Sources */,
 				E0D361A015C4B81700725B62 /* ResultController.m in Sources */,
 				E0D361A515C4BC2600725B62 /* NameViewController.m in Sources */,
+				E0929EFB15E3204600259824 /* QuitController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,9 +359,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chan Komagan (LDU5U5LYT4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chan Komagan (LDU5U5LYT4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -361,13 +375,20 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "8C85ECB9-7D55-4B49-9A85-ADC8BEC3638B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C85ECB9-7D55-4B49-9A85-ADC8BEC3638B";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SKIP_INSTALL = NO;
+				"SKIP_INSTALL[sdk=*]" = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -375,19 +396,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chan Komagan (LDU5U5LYT4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chan Komagan (LDU5U5LYT4)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				"INSTALL_PATH[sdk=*]" = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "8C85ECB9-7D55-4B49-9A85-ADC8BEC3638B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C85ECB9-7D55-4B49-9A85-ADC8BEC3638B";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SKIP_INSTALL = NO;
+				"SKIP_INSTALL[sdk=*]" = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -397,8 +429,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsIQ3/KidsIQ3-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "KidsIQ3/KidsIQ3-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -408,8 +443,13 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsIQ3/KidsIQ3-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "KidsIQ3/KidsIQ3-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				"SKIP_INSTALL[sdk=*]" = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -424,6 +464,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsIQ3/KidsIQ3-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "KidsIQ3Tests/KidsIQ3Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -441,6 +482,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsIQ3/KidsIQ3-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "KidsIQ3Tests/KidsIQ3Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -458,7 +500,7 @@
 				E0D3619615C4B54700725B62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E0D3619715C4B54700725B62 /* Build configuration list for PBXNativeTarget "KidsIQ3" */ = {
 			isa = XCConfigurationList;
@@ -467,7 +509,7 @@
 				E0D3619915C4B54700725B62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E0D3619A15C4B54700725B62 /* Build configuration list for PBXNativeTarget "KidsIQ3Tests" */ = {
 			isa = XCConfigurationList;
@@ -476,7 +518,7 @@
 				E0D3619C15C4B54700725B62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
