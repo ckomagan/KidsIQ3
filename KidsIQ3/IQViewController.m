@@ -17,6 +17,13 @@
 @property (nonatomic, strong) NSString *correctChoice;
 @end
 
+@interface UIButton (ColoredBackground)
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
++ (UIColor *) silverColor;
+
+@end
+
 @implementation IQViewController
 
 @synthesize nsURL = _nsURL;
@@ -31,16 +38,13 @@ int count;
 NSDictionary *res;
 NSString *titleText;
 NSString *scoreText;
+NSString *btnPressed;
 bool reset;
 
 @synthesize name;
 @synthesize maxQuestions;
-@interface UIButton (ColoredBackground)
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;
-+ (UIColor *) silverColor;
 
-@end
 
 -(void)showLoginViewController {
     
@@ -59,16 +63,18 @@ bool reset;
 - (void)showbutton {
     submit.enabled = TRUE;
     [submit setTitle: @"Submit" forState: UIControlStateNormal];
-	[submit setBackgroundColor:[UIColor blueColor]];
+	[submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[submit setBackgroundColor:[UIColor brownColor]];
 }
 
 - (IBAction)choicea:(id)sender {
     
     [self resetAllChoices];
     choicea = (UIButton *)sender;
-    [answerA setTextColor:[UIColor redColor]];
-    [choicea setBackgroundColor:[UIColor redColor]];
+    [answerA setTextColor:[UIColor darkGrayColor]];
+    [choicea setBackgroundColor:[UIColor darkGrayColor]];
     _selectedChoice = answerA.text;
+	btnPressed = @"choicea";
     [self showbutton];
 }
 
@@ -76,9 +82,10 @@ bool reset;
 	
     [self resetAllChoices];    
     choiceb = (UIButton *)sender;
-    [answerB setTextColor:[UIColor redColor]];
-    [choiceb setBackgroundColor:[UIColor redColor]];
+    [answerB setTextColor:[UIColor darkGrayColor]];
+    [choiceb setBackgroundColor:[UIColor darkGrayColor]];
     _selectedChoice = answerB.text;
+	btnPressed = @"choiceb";
     [self showbutton];
   
 }
@@ -87,27 +94,27 @@ bool reset;
     
     [self resetAllChoices];
     choicec = (UIButton *)sender;
-    [answerC setTextColor:[UIColor redColor]];
-    [choicec setBackgroundColor:[UIColor redColor]];
+    [answerC setTextColor:[UIColor darkGrayColor]];
+    [choicec setBackgroundColor:[UIColor darkGrayColor]];
     _selectedChoice = answerC.text;
+	btnPressed = @"choicec";
     [self showbutton];
-	
 }
 
 - (IBAction)choiced:(id)sender {
     
     [self resetAllChoices]; 
     choiced = (UIButton *)sender;
-    [answerD setTextColor:[UIColor redColor]];
-    [choiced setBackgroundColor:[UIColor redColor]];
+    [answerD setTextColor:[UIColor darkGrayColor]];
+    [choiced setBackgroundColor:[UIColor darkGrayColor]];
     _selectedChoice = answerD.text;
+	btnPressed = @"choiced";
     [self showbutton];
 }
 
 - (void)didReceiveMemoryWarning
 {   
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -115,13 +122,12 @@ bool reset;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self showLoginViewController];
 	if(_id <= maxQuestions)
 	{
 		submit.enabled = FALSE;
 		[submit setTitle: @"Select" forState: UIControlStateNormal];
-		//_id = [self generateRandomNumber];
-		//NSLog(@"No of questions: %@", self.maxQuestions);
+		[submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+		[submit setBackgroundColor:[UIColor darkGrayColor]];
 
 		_nsURL = [@"http://www.komagan.com/KidsIQ/index.php?format=json&quiz=1&question_id=" stringByAppendingFormat:@"%d ", _id];
     
@@ -155,11 +161,11 @@ bool reset;
     self.responseData = nil;
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
     NSLog(@"connectionDidFinishLoading");
     NSLog(@"Succeeded! Received %d bytes of data",[self.responseData length]);
     
-    // convert to JSON
     NSError *myError = nil;
     res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
     NSMutableArray *answers = [[NSMutableArray alloc] init];
@@ -174,7 +180,6 @@ bool reset;
         if ([rightChoice isEqualToString:@"1"]) {
             _correctChoice = answer;
         }
-        //NSLog(@"retrieving specific values", answer);
     }
     
     if ([res count] ==0)
@@ -188,11 +193,10 @@ bool reset;
     answerC.text = [answers objectAtIndex:2];
     answerD.text = [answers objectAtIndex:3];
 	[self calculatescore];
-    }
+}
 
 - (void)resetAllChoices 
 {
-    
     [answerA setTextColor:[UIColor blackColor]];
     [choicea setBackgroundColor:[UIColor blueColor]];
     [answerB setTextColor:[UIColor blackColor]];
@@ -209,7 +213,6 @@ bool reset;
 
 - (void)resetAll /* restart the quiz */
 {
-    //reset all the counters
     _id = 1;
     _score = 0;
     reset = YES;  //reset the first set of questions
@@ -233,23 +236,26 @@ bool reset;
 
 - (IBAction)checkAnswer
 {
-    
     if([submit.titleLabel.text isEqual:@"Submit"])
     {    
-        if ([_selectedChoice isEqualToString:_correctChoice]) {
+        if ([_selectedChoice isEqualToString:_correctChoice]) {  // Correct Choice
             result.text = @"Correct Answer!";
             [result setTextColor:[UIColor greenColor]];
+			[self highlightCorrect];
             _score++;
         }
-        else {
-            result.text = @"Incorrect!";
+        else {													// Wrong Choices
+			NSString *preText = @"Incorrect! The correct answer is ";
+            result.text = [preText stringByAppendingString:[NSString stringWithFormat:@"%@",_correctChoice]];
             [result setTextColor:[UIColor redColor]];
+			[self highlightWrong];
         }
         _noOfQuestions++;
         _id++;
 		[self calculatescore];
-		
         [submit setTitle:@"Next" forState:(UIControlState)UIControlStateNormal];
+		[submit setBackgroundColor:[UIColor purpleColor]];
+		[submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 		[self disableAllChoices];
         return;
     }
@@ -284,7 +290,7 @@ bool reset;
     
         if(tally >= 0.9)
         {
-            titleText = @"You are practically a genius";
+            titleText = @"You are practically a genius.";
         }
         if((tally >= 0.7) && (tally <= 0.9))
         {
@@ -296,16 +302,70 @@ bool reset;
         }
         if(tally <= 0.5)
         {
-            titleText = @"You better start over \ue40e";
+            titleText = @"You better start over.";
         }
         
     }
         [score setText: scoreText];
 }
 
+-(void)highlightCorrect
+{
+	if([btnPressed isEqual:@"choicea"])
+	{
+		[choicea setBackgroundColor:[UIColor greenColor]];
+		[answerA setTextColor:[UIColor greenColor]];
+	}
+	
+	if([btnPressed isEqual:@"choiceb"])
+	{
+		[choiceb setBackgroundColor:[UIColor greenColor]];
+		[answerB setTextColor:[UIColor greenColor]];
+	}
+
+	if([btnPressed isEqual:@"choicec"])
+	{
+		[choicec setBackgroundColor:[UIColor greenColor]];
+		[answerC setTextColor:[UIColor greenColor]];
+	}
+
+	if([btnPressed isEqualToString:@"choiced"])
+	{
+		[choiced setBackgroundColor:[UIColor greenColor]];
+		[answerD setTextColor:[UIColor greenColor]];
+	}
+}
+
+-(void)highlightWrong
+{
+	if([btnPressed isEqual:@"choicea"])
+	{
+		[choicea setBackgroundColor:[UIColor redColor]];
+		[answerA setTextColor:[UIColor redColor]];
+	}
+	
+	if([btnPressed isEqual:@"choiceb"])
+	{
+		[choiceb setBackgroundColor:[UIColor redColor]];
+		[answerB setTextColor:[UIColor redColor]];
+	}
+	
+	if([btnPressed isEqual:@"choicec"])
+	{
+		[choicec setBackgroundColor:[UIColor redColor]];
+		[answerC setTextColor:[UIColor redColor]];
+	}
+	
+	if([btnPressed isEqualToString:@"choiced"])
+	{
+		[choiced setBackgroundColor:[UIColor redColor]];
+		[answerD setTextColor:[UIColor redColor]];
+	}
+}
+
+
 -(void)showResults
 {
-    
     ResultController *resultView = [[ResultController alloc] initWithNibName:@"ResultController" bundle:nil];
     resultView.name = [@"Hi there " stringByAppendingString:[name stringByAppendingString:@""]];
     resultView.titleText = titleText;
@@ -321,7 +381,6 @@ bool reset;
     if(count <= maxQuestions)
     {
     int randomNumber = (arc4random() % maxQuestions) + 1; 
-    //NSLog([NSString stringWithFormat:@"%i", randomNumber]);
     
     bool myIndex = [usedNumbers containsObject:[NSNumber numberWithInt: randomNumber]];
     if (myIndex == false) 
@@ -337,19 +396,6 @@ bool reset;
 	}
 		
 	}
-    //[_usedNumbers addObject:[NSNumber numberWithInt:randomNumber]];
-    
-    /*
-    unsigned int myIndex = [_usedNumbers containsObject:[NSNumber numberWithInt: randomNumber]];
-    if(myIndex != NSNotFound) {
-        [_usedNumbers addObject:[NSNumber numberWithInt:randomNumber]];
-        NSLog(@"Adding...", randomNumber);
-        NSLog(@"size of array: %lu", [_usedNumbers count]);
-        return randomNumber;
-    }
-    else{
-        [self generateRandomNumber];
-    }*/
 	return 0;
 }
 
@@ -365,8 +411,7 @@ bool reset;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-   // _usedNumbers = [NSMutableArray alloc];
-	nameLabel.text = name;
+    nameLabel.text = name;
     usedNumbers = [NSMutableSet setWithCapacity:maxQuestions];
     [super viewDidAppear:animated];
 }
@@ -383,28 +428,19 @@ bool reset;
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([res count] ==0)
-    {
-       
     if ([[segue identifier] isEqualToString:@"ResultControllerScreen"]) { 
-        //IQViewController *loginView = segue.destinationViewController;
+
     }
-    }
-        
 }
 
 -(IBAction)dismissView {
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
+    return (orientation != UIDeviceOrientationLandscapeLeft) &&
+	(orientation != UIDeviceOrientationLandscapeRight);
 }
 
 @end
