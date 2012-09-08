@@ -14,7 +14,7 @@
 @end
 
 @implementation ResultController
-@synthesize name;
+@synthesize name; 
 @synthesize titleText;
 @synthesize score;
 @synthesize maxQuestions;
